@@ -1,6 +1,6 @@
 # Mostrar regiones y comunas en un listado, filtrando dependiendo de la región ingresada por el usuario
 # Para buscar los datos de una region o comuna, usuario ingresa su codigo
-opcion = 0
+# opcion = 0
 # Programa se ejecutará hasta que opcion escogida sea distinta de 5
 # archivo_1 = open("","r")
 # archivo_2 = open("","r")
@@ -29,6 +29,7 @@ while(opcion != "5"):
     # b) mostrar grafico contagiados acumulativos ultimos 7 dias de la comuna
     if(opcion == "1"):
         opcion = 0
+        comuna = input("Ingrese el codigo de la comuna: ")
         while opcion != "3":
             print("[1] GRAFICO CONTAGIADOS NO ACUMULATIVOS")
             print("[2] GRAFICO CONTAGIADOS ACUMULATIVOS")
@@ -40,7 +41,7 @@ while(opcion != "5"):
                 opcion = input("Ingrese numero de opcion valido: ")
             print("-------------------------------------------")
             if(opcion == "1"):
-                print("GRAFICO 1")
+                print("GRAFICO CONTAGIADOS NO ACUMULATIVOS")
                 opcion = input("Presiona enter para volver.")
             elif(opcion == "2"):        
                 print("GRAFICO 2")
@@ -50,6 +51,7 @@ while(opcion != "5"):
     # b) mostrar grafico contagiados acumulativos ultimos 7 dias de la region
     elif(opcion == "2"):
         opcion = 0
+        region = input("Ingrese el codigo de la region: ")
         while opcion != "3":
             print("[1] GRAFICO CONTAGIADOS NO ACUMULATIVOS")
             print("[2] GRAFICO CONTAGIADOS ACUMULATIVOS")
@@ -80,13 +82,15 @@ while(opcion != "5"):
                 opcion = input("Ingrese numero de opcion valido: ")
             print("-------------------------------------------")
             if(opcion == "1"):
+                comuna = input("Ingrese el codigo de la comuna: ")
                 print("DATOS 1")
                 opcion = input("Presiona enter para volver.")
             elif(opcion == "2"):        
+                region = input("Ingrese el codigo de la region: ")
                 print("DATOS 2")
                 opcion = input("Presiona enter para volver.")
     # 4 - Región con mayor y menor nivel de contagio (utilizar alguna metrica para comparar)
-    elif(opcion == "4"):        
+    elif(opcion == "4"):
         opcion = 0
         print("REGION CON MENOR NIVEL DE CONTAGIADOS: , CONTAGIADOS: ")
         print("REGION CON MAYOR NIVEL DE CONTAGIADOS: , CONTAGIADOS: ")
