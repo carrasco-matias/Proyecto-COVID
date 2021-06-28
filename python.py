@@ -1,6 +1,8 @@
+import matplotlib.pyplot as plt
+
 # Mostrar regiones y comunas en un listado, filtrando dependiendo de la región ingresada por el usuario
 # Para buscar los datos de una region o comuna, usuario ingresa su codigo
-# opcion = 0
+opcion = 0
 # Programa se ejecutará hasta que opcion escogida sea distinta de 5
 # archivo_1 = open("","r")
 # archivo_2 = open("","r")
@@ -40,11 +42,84 @@ while(opcion != "5"):
             while(opcion != "1" and opcion != "2" and opcion != "3"):
                 opcion = input("Ingrese numero de opcion valido: ")
             print("-------------------------------------------")
+            # Graficos
             if(opcion == "1"):
-                print("GRAFICO CONTAGIADOS NO ACUMULATIVOS")
+                print("GRAFICO CONTAGIADOS NO ACUMULATIVOS:")
+                # Variables a utilizar
+                datos_linea = list()
+                fechas = list()
+                contagiados = list()
+                ejex = list()
+                ejey = list()
+                acumulador = 0
+                # Abrir el archivo en modo lectura
+                archivo = open('Covid-19_std.csv', 'r')
+                # Devuelve una lista de las lineas leidas del archivo
+                lineas = archivo.readlines()
+                # Cerrar archivo.
+                archivo.close()
+                # Recorrer cada linea en la lista entregada por la lectura del archivo
+                for linea in lineas:
+                    # Transforma cada elemento separado por una coma en una lista y se agrega a datos_linea
+                    datos_linea.append(linea.split(','))
+                # Datos no acumulados
+                print('Codigo comuna:', comuna)
+                for dato in datos_linea:
+                    if(dato[3] == comuna):
+                        # grafico de lineas
+                        fechas.append(dato[5])
+                        contagiados.append(dato[6])
+                        # print("Fecha: ", dato[5])
+                        # print("Casos no acum.:", dato[6],'\n')
+                # Quedarse con los ultimos 7 valores
+                for i in range(len(fechas)-7, len(fechas)):
+                    ejex.append(fechas[i])
+                for i in range(len(contagiados)-7, len(contagiados)):
+                    ejey.append(contagiados[i])
+                plt.plot(ejex, ejey)
+                plt.xlabel('Ultimas 7 fechas')
+                plt.ylabel('Contagiados no acumulados')
+                plt.show()
                 opcion = input("Presiona enter para volver.")
-            elif(opcion == "2"):        
-                print("GRAFICO 2")
+            elif(opcion == "2"):
+                print("GRAFICO CONTAGIADOS ACUMULATIVOS:")
+                # Variables a utilizar
+                datos_linea = list()
+                fechas = list()
+                contagiados = list()
+                ejex = list()
+                ejey = list()
+                acumulador = 0
+                # Abrir el archivo en modo lectura
+                archivo = open('Covid-19_std.csv', 'r')
+                # Devuelve una lista de las lineas leidas del archivo
+                lineas = archivo.readlines()
+                # Cerrar archivo.
+                archivo.close()
+                # Recorrer cada linea en la lista entregada por la lectura del archivo
+                for linea in lineas:
+                    # Transforma cada elemento separado por una coma en una lista y se agrega a datos_linea
+                    datos_linea.append(linea.split(','))
+                # Datos acumulados
+                print('Codigo comuna:',comuna)
+                for dato in datos_linea:
+                    if(dato[3] == comuna):
+                        contagiado = dato[6].rstrip()
+                        contagiado = float(contagiado)
+                        acumulador = acumulador + contagiado
+                        # print("Fecha: ", dato[5])
+                        # print("Casos acum.:",acumulador,"\n")
+                        fechas.append(dato[5])
+                        contagiados.append(acumulador)
+                # Quedarse con los ultimos 7 valores
+                for i in range(len(fechas)-7, len(fechas)):
+                    ejex.append(fechas[i])
+                for i in range(len(contagiados)-7, len(contagiados)):
+                    ejey.append(contagiados[i])
+                plt.plot(ejex, ejey)
+                plt.xlabel('Ultimas 7 fechas')
+                plt.ylabel('Contagiados acumulados')
+                plt.show()
                 opcion = input("Presiona enter para volver.")
     # 2 - Ingresar region
     # a) mostrar grafico contagiados no acumulativos ultimos 7 dias de la region
